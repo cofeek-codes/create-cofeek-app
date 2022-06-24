@@ -6,13 +6,13 @@ import fs from 'fs'
 import inquirer from 'inquirer'
 import { createSpinner } from 'nanospinner'
 import path from 'path'
+import ora from 'ora'
 
 // vars
 
 var projectData = {
 	name: '',
 	isGit: false,
-	isCurrentDirectory: false,
 }
 var templatePath = 'https://github.com/cofeek-codes/template-with-gulp.git'
 var projectDirectory = `${process.cwd()}/${projectData.name}`
@@ -63,19 +63,31 @@ async function configureProject() {
 	}
 	// download files
 	try {
-		const spinner = createSpinner('fetching project files\n').start()
+		const spinner = ora('fetching project files\n').start()
 		execSync(`git clone ${templatePath} ${projectData.name}`)
-		spinner.success({ text: 'files downloaded' })
+		spinner.stop()
+		consola.success('files downloaded')
 	} catch (error) {
 		console.log(error)
 		process.exit(1)
 	}
 	// install dependencies
 	try {
-		const spinner = createSpinner('installing dependencies\n').start()
+		const spinner = ora('installing dependencies\n').start()
 		process.chdir(projectData.name)
 		execSync('npm i')
-		spinner.success({ text: 'all dependencies installed successefully' })
+		spinner.stop()
+		consola.success('all dependencies installed successefully')
+	} catch (error) {
+		console.log(error)
+		process.exit(1)
+	}
+	// git init
+	try {
+		if (projectData.isGit) {
+			execSync('git init')
+			consola.success('git repository initialized')
+		}
 	} catch (error) {
 		console.log(error)
 		process.exit(1)
