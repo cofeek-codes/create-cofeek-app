@@ -1,5 +1,6 @@
 # Logs
 commander.txt
+.vscode/
 logs
 *.log
 npm-debug.log*
