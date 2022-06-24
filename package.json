@@ -1,0 +1,20 @@
+{
+	"name": "create-cofeek-app",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/index.js",
+	"type": "module",
+	"bin": {
+		"create-cofeek-app": "bin/index.js"
+	},
+	"scripts": {},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"chalk": "^5.0.1",
+		"commander": "^9.3.0",
+		"inquirer": "^9.0.0",
+		"nanospinner": "^1.1.0"
+	}
+}
