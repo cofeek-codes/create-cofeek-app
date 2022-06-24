@@ -16,7 +16,6 @@ var projectData = {
 }
 var templatePath = 'https://github.com/cofeek-codes/template-with-gulp.git'
 var projectDirectory = `${process.cwd()}/${projectData.name}`
-var dir
 
 const sleep = (ms = 3000) => new Promise(r => setTimeout(r, ms))
 async function getProjectName() {
@@ -52,7 +51,6 @@ async function configureProject() {
 	// create project folder
 	try {
 		fs.mkdirSync(`${projectDirectory}/${projectData.name}`)
-		dir = `${projectDirectory}/${projectData.name}`
 	} catch (error) {
 		if (error.code == 'EEXIST') {
 			consola.error('this directory is already exists')
@@ -68,7 +66,16 @@ async function configureProject() {
 		const spinner = createSpinner('fetching project files\n').start()
 		execSync(`git clone ${templatePath} ${projectData.name}`)
 		spinner.success({ text: 'files downloaded' })
-		consola.success('files downloaded')
+	} catch (error) {
+		console.log(error)
+		process.exit(1)
+	}
+	// install dependencies
+	try {
+		const spinner = createSpinner('installing dependencies\n').start()
+		process.chdir(projectData.name)
+		execSync('npm i')
+		spinner.success({ text: 'all dependencies installed successefully' })
 	} catch (error) {
 		console.log(error)
 		process.exit(1)
