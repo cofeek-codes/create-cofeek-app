@@ -50,7 +50,8 @@ async function getIsGit() {
 async function configureProject() {
 	// create project folder
 	try {
-		fs.mkdirSync(`${projectDirectory}/${projectData.name}`)
+		if (projectData.name != '.')
+			fs.mkdirSync(`${projectDirectory}/${projectData.name}`)
 	} catch (error) {
 		if (error.code == 'EEXIST') {
 			consola.error('this directory is already exists')
