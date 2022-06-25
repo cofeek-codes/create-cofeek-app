@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 import { execSync } from 'child_process'
-import { program } from 'commander'
 import consola from 'consola'
 import fs from 'fs'
-import inquirer from 'inquirer'
-import { createSpinner } from 'nanospinner'
-import path from 'path'
 import ora from 'ora'
+import getProjectName from '../src/functions/getName.js'
+import getIsGit from '../src/functions/getIsGit.js'
 
 // vars
 
@@ -18,32 +16,9 @@ var templatePath = 'https://github.com/cofeek-codes/template-with-gulp.git'
 var projectDirectory = `${process.cwd()}/${projectData.name}`
 
 const sleep = (ms = 3000) => new Promise(r => setTimeout(r, ms))
-async function getProjectName() {
-	const name = await inquirer.prompt({
-		name: 'project_name',
-		type: 'input',
-		message: 'project name?',
-		default() {
-			return 'my-app'
-		},
-	})
-	projectData.name = name.project_name
-	console.log(projectData.name)
-}
-
-async function getIsGit() {
-	const isGit = await inquirer.prompt({
-		name: 'is_git',
-		type: 'confirm',
-		message: 'do you want to use Git?',
-		default() {
-			return false
-		},
-	})
-	projectData.isGit = isGit.is_git
-	console.log(projectDirectory)
-	console.log(projectData.name)
-}
+// parse args
+projectData.name = await getProjectName()
+projectData.isGit = await getIsGit()
 
 // main
 
@@ -95,6 +70,4 @@ async function configureProject() {
 	}
 }
 
-await getProjectName()
-await getIsGit()
 await configureProject()
