@@ -5,20 +5,30 @@ import fs from 'fs'
 import ora from 'ora'
 import getProjectName from '../src/functions/getName.js'
 import getIsGit from '../src/functions/getIsGit.js'
+import getTemplate from '../src/functions/getTemplate.js'
 
 // vars
 
 var projectData = {
 	name: '',
 	isGit: false,
+	template: '',
 }
-var templatePath = 'https://github.com/cofeek-codes/template-with-gulp.git'
-var projectDirectory = `${process.cwd()}/${projectData.name}`
 
 const sleep = (ms = 3000) => new Promise(r => setTimeout(r, ms))
+var projectDirectory = `${process.cwd()}/${projectData.name}`
 // parse args
 projectData.name = await getProjectName()
 projectData.isGit = await getIsGit()
+projectData.template = await getTemplate()
+
+// template
+var templatePath = ''
+if (projectData.template == 'gulp') {
+	templatePath = 'https://github.com/cofeek-codes/template-with-gulp.git'
+} else if (projectData.template == 'basic') {
+	templatePath = 'https://github.com/cofeek-codes/template.git'
+}
 
 // main
 
