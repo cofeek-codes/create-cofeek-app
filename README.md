@@ -8,5 +8,10 @@ just run `npx create-cofeek-app` to start 🤩
 
 ## templates
 
-- basic (simplest template for websites with optional scss)
-- gulp (main template with gulp and it's plugins)
+- [basic](https://github.com/cofeek-codes/template.git) (simplest template for websites with optional scss)
+- [gulp](https://github.com/cofeek-codes/template-with-gulp.git) (main template with gulp and it's plugins)
+
+## roadmap 🚗
+
+- add more templates
+- add new options

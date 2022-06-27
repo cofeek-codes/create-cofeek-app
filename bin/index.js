@@ -19,8 +19,8 @@ const sleep = (ms = 3000) => new Promise(r => setTimeout(r, ms))
 var projectDirectory = `${process.cwd()}/${projectData.name}`
 // parse args
 projectData.name = await getProjectName()
-projectData.isGit = await getIsGit()
 projectData.template = await getTemplate()
+projectData.isGit = await getIsGit()
 
 // template
 var templatePath = ''
@@ -37,6 +37,7 @@ async function configureProject() {
 	try {
 		if (projectData.name != '.')
 			fs.mkdirSync(`${projectDirectory}/${projectData.name}`)
+		consola.success('directory created')
 	} catch (error) {
 		if (error.code == 'EEXIST') {
 			consola.error('this directory is already exists')
@@ -44,8 +45,6 @@ async function configureProject() {
 			console.log(error)
 		}
 		process.exit(1)
-	} finally {
-		consola.success('directory created')
 	}
 	// download files
 	try {
@@ -58,15 +57,17 @@ async function configureProject() {
 		process.exit(1)
 	}
 	// install dependencies
-	try {
-		const spinner = ora('installing dependencies\n').start()
-		process.chdir(projectData.name)
-		execSync('npm i')
-		spinner.stop()
-		consola.success('all dependencies installed successefully')
-	} catch (error) {
-		console.log(error)
-		process.exit(1)
+	if (projectData.template !== 'basic') {
+		try {
+			const spinner = ora('installing dependencies\n').start()
+			process.chdir(projectData.name)
+			execSync('npm i')
+			spinner.stop()
+			consola.success('all dependencies installed successefully')
+		} catch (error) {
+			console.log(error)
+			process.exit(1)
+		}
 	}
 	// git init
 	try {
