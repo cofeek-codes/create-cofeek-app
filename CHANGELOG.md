@@ -1,7 +1,3 @@
-# 1.0.3
+# 1.0.4
 
-- issues fixed
-
-- docs updated
-
-- unused libraries removed
+- git bug fix

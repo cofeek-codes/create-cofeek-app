@@ -62,6 +62,7 @@ async function configureProject() {
 			const spinner = ora('installing dependencies\n').start()
 			process.chdir(projectData.name)
 			execSync('npm i')
+			execSync(`rm -rf .git`)
 			spinner.stop()
 			consola.success('all dependencies installed successefully')
 		} catch (error) {
