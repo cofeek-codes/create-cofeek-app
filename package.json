@@ -8,6 +8,10 @@
 		"create-cofeek-app": "bin/index.js"
 	},
 	"scripts": {},
+	"repository": {
+  "type": "git",
+  "url": "https://github.com/cofeek-codes/create-cofeek-app.git"
+},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
