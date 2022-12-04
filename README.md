@@ -1,3 +1,4 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/cofeek-codes/create-cofeek-app/badge)](https://www.codefactor.io/repository/github/cofeek-codes/create-cofeek-app)
 # create-cofeek-app
 
 My simple cli to run templates i've made.
